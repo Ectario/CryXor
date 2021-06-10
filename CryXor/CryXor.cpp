@@ -1,31 +1,31 @@
-#include <fstream>
 #include <string>
 #include <iostream>
 #include <bitset>
+#include "FileManager.h"
 
 using namespace std;
 
+string TextToBinaryString(string words) {
+    string binaryString = "";
+    for (char& _char : words) {
+        binaryString += bitset<8>(_char).to_string();
+    }
+    return binaryString;
+}
+
+
+void usage() {
+    std::cerr << "Usage : CryXor.exe [crypt/decrypt] [path] [key] ";
+}
 
 int main(int argc, char** argv) {
 
-    string path = "../texte.txt";
+    string path = "../texte.txt.CryXor";
+    FileManager* fm = new FileManager();
 
-    std::ifstream input(path, std::ios::binary);
-    std::ofstream output(path + ".CryXor", std::ios::binary);
-
-    const size_t bufferSize = 8;
-    char buffer[bufferSize];
-
-    while (!input.eof()){
-        input.read(buffer, bufferSize);
-        for (size_t i = 0; i < bufferSize; i++) {
-            buffer[i] ^= 1;
-        }
-        output.write(buffer, input.gcount());
-    }
-
-    // Close the file
-    input.close();
+    fm->loadFile(path);
+    fm->encryptFile("ff", true); //ff is not yet used
+    delete fm;
 
     return EXIT_SUCCESS;
 }
