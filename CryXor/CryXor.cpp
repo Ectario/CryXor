@@ -5,43 +5,29 @@
 
 using namespace std;
 
-string TextToBinaryString(string words) {
-    string binaryString = "";
-    for (char& _char : words) {
-        binaryString += bitset<8>(_char).to_string();
+
+int main(int argc, char** argv) {
+
+    string path = "../texte.txt";
+
+    std::ifstream input(path, std::ios::binary);
+    std::ofstream output(path + ".CryXor", std::ios::binary);
+
+    const size_t bufferSize = 8;
+    char buffer[bufferSize];
+
+    while (!input.eof()){
+        input.read(buffer, bufferSize);
+        for (size_t i = 0; i < bufferSize; i++) {
+            buffer[i] ^= 1;
+        }
+        output.write(buffer, input.gcount());
     }
-    return binaryString;
-}
-
-
-int main() {
-    //// Create a text file
-    //ofstream MyWriteFile("../texte.txt");
-
-    //// Write to the file
-    //MyWriteFile << "Files can be tricky, but it is fun enough!";
-
-    //// Close the file
-    //MyWriteFile.close();
-
-    // Create a text string, which is used to output the text file
-    string myText;
-    string myLine;
-
-
-    // Read from the text file
-    ifstream MyReadFile("../texte.txt");
-
-    // Use a while loop together with the getline() function to read the file line by line
-    while (getline(MyReadFile, myLine)) {
-        // Output the text from the file
-        myText += myLine;
-    }
-
-    cout << TextToBinaryString(myText);
 
     // Close the file
-    MyReadFile.close();
+    input.close();
+
+    return EXIT_SUCCESS;
 }
 
 
