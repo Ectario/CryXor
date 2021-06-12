@@ -17,6 +17,7 @@ public:
 
 	~FileManager();
 private:
+	string TextToBinaryString(string text);
 	std::ifstream input;
 	std::ofstream output;
 	string path = "";
