@@ -33,6 +33,7 @@ Thumbs.db
 *.res
 *.rc
 Debug/
+Release/
 x64/
 /.qmake.cache
 /.qmake.stash

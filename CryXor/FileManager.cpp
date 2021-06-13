@@ -20,11 +20,11 @@ bool FileManager::loadFile(string param_path) {
 	try {
 		path = param_path;
 		input.open(path, std::ios::binary);
-		if (!input.is_open() || input.fail()) throw "Warning in loadFile : Couldn't open the file.";
+		if (!input.is_open() || input.fail()) throw "Warning during the file search : Couldn't open the file. (maybe wrong path?)";
 	}
 	catch (std::exception const& e)
 	{
-		cerr << "ERROR in loadFile: " << e.what() << endl;
+		cerr << "ERROR in file loading : " << e.what() << endl;
 		return false;
 	}
 	return true;
@@ -57,12 +57,12 @@ bool FileManager::encryptFile(string key, bool isAlreadyEncrypted) {
 		}
 		catch (std::exception const& e)
 		{
-			cerr << "ERROR in encryptFile: " << e.what() << endl;
+			cerr << "ERROR during encryption : " << e.what() << endl;
 			return false;
 		}
 
 	}
-	else { cerr << "error in encryption : input file not initialized" << endl; return false; }
+	else { cerr << "ERROR in init encryption : input file not initialized" << endl; return false; }
 
 	return true;
 }
