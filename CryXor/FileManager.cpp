@@ -5,6 +5,10 @@ FileManager::FileManager() {}
 
 FileManager::~FileManager() {
 	if (!input) input.close(); //close the file
+	if (remove(path.c_str()) != 0)
+		perror("Error deleting old file");
+	else
+		puts("Old file successfully deleted");
 }
 
 string FileManager::TextToBinaryString(string text) {
